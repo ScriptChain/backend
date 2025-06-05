@@ -5,28 +5,45 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { ActivityLog } from '../entities/activity-log.entity';
+
+export enum AuthMethod {
+  EMAIL = 'email',
+  STARKNET = 'starknet',
+}
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   email: string;
 
-  @Column()
+  @Column({ nullable: true })
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   firstName: string;
 
-  @Column()
+  @Column({ nullable: true })
   lastName: string;
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ unique: true, nullable: true })
+  starknetAddress: string;
+
+  @Column({
+    type: 'enum',
+    enum: AuthMethod,
+    default: AuthMethod.EMAIL
+  })
+  authMethod: AuthMethod;
 
   @OneToMany(() => ActivityLog, (activityLog) => activityLog.user)
   activityLogs: ActivityLog[];
@@ -36,4 +53,16 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  validateAuthMethod() {
+    if (this.authMethod === AuthMethod.EMAIL && !this.email) {
+      throw new Error('Email is required for email authentication');
+    }
+    
+    if (this.authMethod === AuthMethod.STARKNET && !this.starknetAddress) {
+      throw new Error('StarkNet address is required for StarkNet authentication');
+    }
+  }
 }
