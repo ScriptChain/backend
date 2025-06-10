@@ -10,6 +10,7 @@ import { Book } from './entities/book.entity';
 import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
 import { AuthModule } from './auth/auth.module';
+import { StarknetModule } from './starknet/starknet.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     BlogModule,
     AuthModule,
+    StarknetModule,
   ],
   controllers: [AppController],
   providers: [AppService],
