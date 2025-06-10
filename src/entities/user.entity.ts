@@ -8,6 +8,12 @@ import {
 } from 'typeorm';
 import { ActivityLog } from '../entities/activity-log.entity';
 
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+  MODERATOR = 'moderator',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -27,6 +33,13 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
 
   @OneToMany(() => ActivityLog, (activityLog) => activityLog.user)
   activityLogs: ActivityLog[];

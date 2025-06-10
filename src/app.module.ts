@@ -9,6 +9,7 @@ import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
 import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { BlogModule } from './blog/blog.module';
       synchronize: true,
     }),
     BlogModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
