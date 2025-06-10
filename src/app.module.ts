@@ -11,6 +11,9 @@ import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
 import { AuthModule } from './auth/auth.module';
 
+import { StarknetModule } from './starknet/starknet.module';
+
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,6 +24,9 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot(typeormConfig),
     BlogModule,
     AuthModule,
+
+    StarknetModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],

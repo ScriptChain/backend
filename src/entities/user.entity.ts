@@ -10,9 +10,16 @@ import {
 } from 'typeorm';
 import { ActivityLog } from '../entities/activity-log.entity';
 
+
 export enum AuthMethod {
   EMAIL = 'email',
   STARKNET = 'starknet',
+
+export enum UserRole {
+  USER = 'user',
+  ADMIN = 'admin',
+  MODERATOR = 'moderator',
+
 }
 
 @Entity('users')
@@ -35,6 +42,7 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
+
   @Column({ unique: true, nullable: true })
   starknetAddress: string;
 
@@ -44,6 +52,13 @@ export class User {
     default: AuthMethod.EMAIL
   })
   authMethod: AuthMethod;
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
+
 
   @OneToMany(() => ActivityLog, (activityLog) => activityLog.user)
   activityLogs: ActivityLog[];
