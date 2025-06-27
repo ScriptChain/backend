@@ -9,8 +9,12 @@ import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
 import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
+<<<<<<< feature/reading-progress-module
+import { ReadingProgressModule } from './reading-progress/reading-progress.module';
+=======
 import { AuthModule } from './auth/auth.module';
 import { StarknetModule } from './starknet/starknet.module';
+>>>>>>> main
 
 @Module({
   imports: [
@@ -30,8 +34,12 @@ import { StarknetModule } from './starknet/starknet.module';
       synchronize: true,
     }),
     BlogModule,
+<<<<<<< feature/reading-progress-module
+    ReadingProgressModule,
+=======
     AuthModule,
     StarknetModule,
+>>>>>>> main
   ],
   controllers: [AppController],
   providers: [AppService],
