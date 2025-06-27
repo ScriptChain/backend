@@ -9,9 +9,6 @@ import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
 import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
-import { AuthModule } from './auth/auth.module';
-
-import { StarknetModule } from './starknet/starknet.module';
 
 
 @Module({
@@ -23,9 +20,15 @@ import { StarknetModule } from './starknet/starknet.module';
     // Use the typeorm config
     TypeOrmModule.forRoot(typeormConfig),
     BlogModule,
+
+    ReadingProgressModule,
     AuthModule,
 
     StarknetModule,
+
+
+
+
 
   ],
   controllers: [AppController],
