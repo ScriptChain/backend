@@ -22,8 +22,8 @@ async function bootstrap() {
         const dataSource = app.get(typeorm_1.DataSource);
         if (dataSource.isInitialized) {
             logger.log('📦 Database connection established');
-            logger.log(`⚡ Application is running on: http://localhost:${port}`);
         }
+        logger.log(`⚡ Application is running on: http://localhost:${port}`);
     }
     catch (error) {
         logger.error('Error starting application:', error);

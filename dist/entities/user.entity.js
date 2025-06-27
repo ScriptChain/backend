@@ -9,9 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.User = exports.AuthMethod = void 0;
 const typeorm_1 = require("typeorm");
 const activity_log_entity_1 = require("../entities/activity-log.entity");
+var AuthMethod;
+(function (AuthMethod) {
+    AuthMethod["EMAIL"] = "email";
+    AuthMethod["STARKNET"] = "starknet";
+})(AuthMethod || (exports.AuthMethod = AuthMethod = {}));
 let User = class User {
     id;
     email;
@@ -19,9 +24,19 @@ let User = class User {
     firstName;
     lastName;
     isActive;
+    starknetAddress;
+    authMethod;
     activityLogs;
     createdAt;
     updatedAt;
+    validateAuthMethod() {
+        if (this.authMethod === AuthMethod.EMAIL && !this.email) {
+            throw new Error('Email is required for email authentication');
+        }
+        if (this.authMethod === AuthMethod.STARKNET && !this.starknetAddress) {
+            throw new Error('StarkNet address is required for StarkNet authentication');
+        }
+    }
 };
 exports.User = User;
 __decorate([
@@ -29,25 +44,37 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)({ unique: true, nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "firstName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "lastName", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ unique: true, nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "starknetAddress", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: AuthMethod,
+        default: AuthMethod.EMAIL
+    }),
+    __metadata("design:type", String)
+], User.prototype, "authMethod", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => activity_log_entity_1.ActivityLog, (activityLog) => activityLog.user),
     __metadata("design:type", Array)
@@ -60,6 +87,13 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    (0, typeorm_1.BeforeUpdate)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], User.prototype, "validateAuthMethod", null);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)('users')
 ], User);
