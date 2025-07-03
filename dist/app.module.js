@@ -14,7 +14,10 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_config_1 = require("./config/typeorm.config");
 const blog_module_1 = require("./blog/blog.module");
+const book_module_1 = require("./entities/book.module");
+const reading_progress_module_1 = require("./reading-progress/reading-progress.module");
 const auth_module_1 = require("./auth/auth.module");
+const starknet_module_1 = require("./starknet/starknet.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,7 +30,10 @@ exports.AppModule = AppModule = __decorate([
             }),
             typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.default),
             blog_module_1.BlogModule,
+            reading_progress_module_1.ReadingProgressModule,
             auth_module_1.AuthModule,
+            starknet_module_1.StarknetModule,
+            book_module_1.BookModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
