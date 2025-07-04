@@ -53,4 +53,17 @@ export class StarknetService {
       throw error;
     }
   }
+
+  async getTokenBalance(walletAddress: string): Promise<number> {
+    try {
+      // Replace 'balanceOf' and argument structure as per your contract's ABI
+      const result = await this.contract.call('balanceOf', [walletAddress]);
+      // Adjust result parsing as per your contract's return type
+      const balance = Array.isArray(result) ? Number(result[0]) : Number(result);
+      return balance;
+    } catch (error) {
+      this.logger.error(`Failed to fetch token balance for ${walletAddress}: ${error.message}`);
+      throw new Error('Failed to fetch token balance from StarkNet contract');
+    }
+  }
 }
