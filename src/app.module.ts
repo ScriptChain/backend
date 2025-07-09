@@ -9,6 +9,7 @@ import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
 import { ActivityLog } from './entities/activity-log.entity';
 import { BlogModule } from './blog/blog.module';
+
 import { BookModule } from './entities/book.module';
 import { ReadingProgressModule } from './reading-progress/reading-progress.module';
 import { AuthModule } from './auth/auth.module';
