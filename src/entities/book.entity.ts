@@ -31,6 +31,9 @@ export class Book {
   @Column('int')
   stockQuantity: number;
 
+  @Column('text', { nullable: true })
+  lockedContent: string;
+
   @OneToMany(() => ActivityLog, (activityLog) => activityLog.book)
   activityLogs: ActivityLog[];
 

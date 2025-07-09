@@ -7,6 +7,7 @@ export declare class Book {
     isbn: string;
     price: number;
     stockQuantity: number;
+    lockedContent: string;
     activityLogs: ActivityLog[];
     createdAt: Date;
     updatedAt: Date;

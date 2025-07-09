@@ -1,7 +1,10 @@
 import { ActivityLog } from '../entities/activity-log.entity';
 export declare enum AuthMethod {
     EMAIL = "email",
-    STARKNET = "starknet"
+    STARKNET = "starknet",
+    export,
+    enum,
+    UserRole
 }
 export declare class User {
     id: string;
@@ -12,6 +15,7 @@ export declare class User {
     isActive: boolean;
     starknetAddress: string;
     authMethod: AuthMethod;
+    role: UserRole;
     activityLogs: ActivityLog[];
     createdAt: Date;
     updatedAt: Date;

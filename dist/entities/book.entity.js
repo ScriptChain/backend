@@ -20,6 +20,7 @@ let Book = class Book {
     isbn;
     price;
     stockQuantity;
+    lockedContent;
     activityLogs;
     createdAt;
     updatedAt;
@@ -53,6 +54,10 @@ __decorate([
     (0, typeorm_1.Column)('int'),
     __metadata("design:type", Number)
 ], Book.prototype, "stockQuantity", void 0);
+__decorate([
+    (0, typeorm_1.Column)('text', { nullable: true }),
+    __metadata("design:type", String)
+], Book.prototype, "lockedContent", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => activity_log_entity_1.ActivityLog, (activityLog) => activityLog.book),
     __metadata("design:type", Array)

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.AuthMethod = void 0;
 const typeorm_1 = require("typeorm");
@@ -16,7 +17,16 @@ var AuthMethod;
 (function (AuthMethod) {
     AuthMethod["EMAIL"] = "email";
     AuthMethod["STARKNET"] = "starknet";
+    AuthMethod[AuthMethod["export"] = void 0] = "export";
+    AuthMethod[AuthMethod["enum"] = void 0] = "enum";
+    AuthMethod[AuthMethod["UserRole"] = void 0] = "UserRole";
 })(AuthMethod || (exports.AuthMethod = AuthMethod = {}));
+{
+    USER = 'user',
+        ADMIN = 'admin',
+        MODERATOR = 'moderator',
+    ;
+}
 let User = class User {
     id;
     email;
@@ -26,6 +36,7 @@ let User = class User {
     isActive;
     starknetAddress;
     authMethod;
+    role;
     activityLogs;
     createdAt;
     updatedAt;
@@ -73,8 +84,16 @@ __decorate([
         enum: AuthMethod,
         default: AuthMethod.EMAIL
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], User.prototype, "authMethod", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: UserRole,
+        default: UserRole.USER,
+    }),
+    __metadata("design:type", typeof (_a = typeof UserRole !== "undefined" && UserRole) === "function" ? _a : Object)
+], User.prototype, "role", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => activity_log_entity_1.ActivityLog, (activityLog) => activityLog.user),
     __metadata("design:type", Array)
